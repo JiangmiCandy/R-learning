@@ -1,0 +1,53 @@
+---
+title: "R语言学习进度汇报"
+subtitle: "第一周学习进度"
+author: "郭释文"
+institute: "临本一班"
+date: "`r Sys.Date()`"
+output: 
+  beamer_presentation:
+    latex_engine: xelatex
+fontsize: 10pt
+theme: Madrid
+header-includes:
+  - \usepackage[UTF8]{ctex}   # 中文支持
+  - \usepackage{amsmath}      # 数学公式
+  - \titlegraphic{\includegraphics[width=3cm]{u1 logo.png}} # 封面校徽
+---
+
+# 统计图示例
+
+```{r setup, include=FALSE}
+library(showtext)
+showtext_auto()
+
+# 自动寻找常见中文字体
+find_chinese_font <- function() {
+  font_paths <- c(
+    "C:/Windows/Fonts/msyh.ttc",   # 微软雅黑
+    "C:/Windows/Fonts/simhei.ttf", # 黑体
+    "C:/Windows/Fonts/simsun.ttc"  # 宋体
+  )
+  for (p in font_paths) {
+    if (file.exists(p)) return(p)
+  }
+  return(NULL)
+}
+font_file <- find_chinese_font()
+if (!is.null(font_file)) {
+  font_add("zhfont", font_file)
+} else {
+  font_add("zhfont", "sans")
+}
+```
+
+```{r pressure-plot, echo=FALSE, fig.width=5, fig.height=3}
+温度 <- seq(0, 100, by=10)
+压力 <- 760 + 5 * 温度 + rnorm(length(温度), 0, 20)
+
+plot(温度, 压力, type="b", pch=19, col="blue",
+     main="压力与温度关系",
+     xlab="温度 (°C)",
+     ylab="压力 (mm Hg)",
+     family="zhfont")
+
